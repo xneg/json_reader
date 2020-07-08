@@ -8,26 +8,6 @@ import org.json4s._
 import org.json4s.jackson.JsonMethods._
 import org.apache.spark.rdd._
 
-object JsonReaderLocal extends App{
-  val inputUrl = args(0)
-  
-  val conf = new SparkConf()
-    .setMaster("local")
-    .setAppName("my awesome app")
-
-  Runner.run(conf, inputUrl)
-}
-
-/**
-  * Use this when submitting the app to a cluster with spark-submit
-  * */
-object JsonReader extends App{
-  val inputUrl = args(0)
-
-  // spark-submit command should supply all necessary config elements
-  Runner.run(new SparkConf(), inputUrl)
-}
-
 object Runner {
   def run(conf: SparkConf, inputUrl: String): Unit = {
     // "https://storage.googleapis.com/otus_sample_data/winemag-data.json.tgz"
