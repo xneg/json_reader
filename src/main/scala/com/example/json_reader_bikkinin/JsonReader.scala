@@ -12,10 +12,10 @@ object Runner {
   def run(conf: SparkConf, inputUrl: String): Unit = {
     // "https://storage.googleapis.com/otus_sample_data/winemag-data.json.tgz"
     new URL(inputUrl) #> new File("Input.tgz") !!;
-    ("mkdir Input" #&& "tar zxvf Input.tgz -C Input") !!   
+    ("mkdir -p Input" #&& "tar zxvf Input.tgz -C Input") !!   
 
     val d = new File("Input")
-    for (f <- d.listFiles()) {
+    for (f <- d.listFiles().filter(f => f.getName.endsWith(".json"))) {
       val inputFile = f.toPath.toString
       printFile(conf, inputFile)
     }
